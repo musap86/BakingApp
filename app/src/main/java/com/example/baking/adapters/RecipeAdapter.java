@@ -1,4 +1,4 @@
-package com.example.bakingapp.adapters;
+package com.example.baking.adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -8,17 +8,22 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.bakingapp.R;
+import com.example.baking.R;
+import com.example.baking.model.Recipe;
 
 import java.util.ArrayList;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
     private final IListItemClickListener mOnClickListener;
-    private final ArrayList<String> mItemList;
+    private final ArrayList<Recipe> mRecipeList;
 
-    public RecipeAdapter(IListItemClickListener listItemClickListener, ArrayList<String> itemList) {
+    public RecipeAdapter(IListItemClickListener listItemClickListener, ArrayList<Recipe> recipes) {
         mOnClickListener = listItemClickListener;
-        mItemList = itemList;
+        if (recipes == null) {
+            mRecipeList = new ArrayList<>();
+        } else {
+            mRecipeList = recipes;
+        }
     }
 
     @NonNull
@@ -36,11 +41,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     @Override
     public int getItemCount() {
-        return mItemList.size();
+        return mRecipeList.size();
     }
 
     class RecipeViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
-        private TextView mRecipeNameTextView;
+        private final TextView mRecipeNameTextView;
 
         RecipeViewHolder(View itemView) {
             super(itemView);
@@ -49,7 +54,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         }
 
         void bind(int position) {
-            mRecipeNameTextView.setText(mItemList.get(position));
+            mRecipeNameTextView.setText(mRecipeList.get(position).name);
         }
 
         @Override

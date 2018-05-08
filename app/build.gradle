@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.example.bakingapp"
+        applicationId "com.example.baking"
         minSdkVersion 17
         targetSdkVersion 27
         versionCode 1
@@ -30,6 +30,9 @@ dependencies {
     implementation 'com.google.android.exoplayer:exoplayer:2.7.3'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.jakewharton.timber:timber:4.7.0'
+    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'net.simonvt.schematic:schematic:0.7.0'
