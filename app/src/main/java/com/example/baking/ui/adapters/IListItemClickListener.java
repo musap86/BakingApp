@@ -1,4 +1,4 @@
-package com.example.baking.adapters;
+package com.example.baking.ui.adapters;
 
 import android.view.View;
 

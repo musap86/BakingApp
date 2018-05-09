@@ -1,14 +1,14 @@
-package com.example.baking.model;
+package com.example.baking.network;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Recipe {
+public class RecipeJsonModel {
     @SerializedName("id")
     @Expose
-    public String id;
+    public int id;
     @SerializedName("name")
     @Expose
     public String name;

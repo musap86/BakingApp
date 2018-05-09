@@ -1,4 +1,4 @@
-package com.example.baking.adapters;
+package com.example.baking.ui.adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -9,21 +9,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.baking.R;
-import com.example.baking.model.Recipe;
+import com.example.baking.data.entities.Recipe;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
     private final IListItemClickListener mOnClickListener;
-    private final ArrayList<Recipe> mRecipeList;
+    private List<Recipe> mRecipes;
 
-    public RecipeAdapter(IListItemClickListener listItemClickListener, ArrayList<Recipe> recipes) {
+    public RecipeAdapter(IListItemClickListener listItemClickListener) {
         mOnClickListener = listItemClickListener;
-        if (recipes == null) {
-            mRecipeList = new ArrayList<>();
-        } else {
-            mRecipeList = recipes;
-        }
     }
 
     @NonNull
@@ -36,25 +31,33 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     @Override
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
-        holder.bind(position);
+        if (mRecipes != null) {
+            Recipe current = mRecipes.get(position);
+            holder.recipeNameTextView.setText(current.name);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mRecipeList.size();
+        if (mRecipes != null) {
+            return mRecipes.size();
+        } else {
+            return 0;
+        }
+    }
+
+    public void setRecipes(List<Recipe> recipes) {
+        mRecipes = recipes;
+        notifyDataSetChanged();
     }
 
     class RecipeViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
-        private final TextView mRecipeNameTextView;
+        private final TextView recipeNameTextView;
 
         RecipeViewHolder(View itemView) {
             super(itemView);
-            mRecipeNameTextView = itemView.findViewById(R.id.tv_recipe_name);
+            recipeNameTextView = itemView.findViewById(R.id.tv_recipe_name);
             itemView.setOnClickListener(this);
-        }
-
-        void bind(int position) {
-            mRecipeNameTextView.setText(mRecipeList.get(position).name);
         }
 
         @Override

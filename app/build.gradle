@@ -20,23 +20,44 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    //Using 27.1.0 instead of 27.1.1 because of conflict with picasso (doesn't support).
-    implementation 'com.android.support:support-annotations:27.1.0'
-    implementation 'com.android.support:appcompat-v7:27.1.0'
-    implementation 'com.android.support:cardview-v7:27.1.0'
-    implementation 'com.android.support:recyclerview-v7:27.1.0'
-    implementation 'com.android.support:preference-v7:27.1.0'
+    implementation 'com.android.support:support-annotations:27.1.1'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:cardview-v7:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:preference-v7:27.1.1'
+    implementation 'com.android.support:support-fragment:27.1.1'
+    implementation 'com.android.support:exifinterface:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
-    implementation 'com.google.android.exoplayer:exoplayer:2.7.3'
-    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    // Timber
+    // Logger which provides utility on top of Android's normal Log class.
     implementation 'com.jakewharton.timber:timber:4.7.0'
-    implementation 'com.google.code.gson:gson:2.8.2'
-    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    // Butter Knife
+    // Field and method binding for Android views.
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    implementation 'net.simonvt.schematic:schematic:0.7.0'
-    annotationProcessor 'net.simonvt.schematic:schematic-compiler:0.7.0'
+    // Picasso
+    // Caching and threading with image handling.
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    // Retrofit
+    // A type-safe REST client for Android which intelligently maps an API into a client interface
+    // using annotations.
+    implementation 'com.google.code.gson:gson:2.8.4'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    // Exoplayer
+    // For playing audio and video both locally and over the Internet.
+    implementation 'com.google.android.exoplayer:exoplayer:2.7.3'
+    // Room
+    // An abstraction layer over SQLite to allow fluent database access.
+    implementation "android.arch.persistence.room:runtime:1.1.0"
+    annotationProcessor "android.arch.persistence.room:compiler:1.1.0"
+    androidTestImplementation "android.arch.persistence.room:testing:1.1.0"
+    // Lifecycle
+    // Components that can automatically adjust their behavior based on the current lifecycle state.
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
+    // Android UI tests
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
