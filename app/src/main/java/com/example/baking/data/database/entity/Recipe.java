@@ -1,4 +1,4 @@
-package com.example.baking.data.database.entities;
+package com.example.baking.data.database.entity;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 
 @SuppressWarnings("NullableProblems")
 @Entity(tableName = "recipes")
-public class Recipe {
+public class Recipe extends BakingEntity {
     @PrimaryKey
     @NonNull
     public int id;

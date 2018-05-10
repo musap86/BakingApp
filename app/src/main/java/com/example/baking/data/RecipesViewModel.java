@@ -4,7 +4,7 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 
-import com.example.baking.data.database.entities.Recipe;
+import com.example.baking.data.database.entity.Recipe;
 
 import java.util.List;
 

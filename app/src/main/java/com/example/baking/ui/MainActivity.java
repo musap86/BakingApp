@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.example.baking.BuildConfig;
 import com.example.baking.R;
 import com.example.baking.data.RecipesViewModel;
-import com.example.baking.data.database.entities.Recipe;
+import com.example.baking.data.database.entity.Recipe;
 import com.example.baking.data.web.WebUtils;
 import com.example.baking.ui.adapters.IListItemClickListener;
 import com.example.baking.ui.adapters.RecipeAdapter;

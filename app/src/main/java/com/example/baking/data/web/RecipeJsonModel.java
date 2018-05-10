@@ -14,18 +14,18 @@ public class RecipeJsonModel {
     public String name;
     @SerializedName("ingredients")
     @Expose
-    public List<Ingredient> ingredients = null;
+    public List<IngredientJsonModel> ingredients = null;
     @SerializedName("steps")
     @Expose
-    public List<Step> steps = null;
+    public List<StepJsonModel> steps = null;
     @SerializedName("servings")
     @Expose
     public String servings;
     @SerializedName("image")
     @Expose
     public String image;
-
-    private class Ingredient {
+    
+    public class IngredientJsonModel {
         @SerializedName("quantity")
         @Expose
         public String quantity;
@@ -36,8 +36,8 @@ public class RecipeJsonModel {
         @Expose
         public String ingredient;
     }
-
-    private class Step {
+    
+    public class StepJsonModel {
         @SerializedName("id")
         @Expose
         public String id;

@@ -6,14 +6,18 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
-import com.example.baking.data.database.entities.Ingredients;
-import com.example.baking.data.database.entities.Recipe;
-import com.example.baking.data.database.entities.Steps;
+import com.example.baking.data.database.dao.IngredientsDao;
+import com.example.baking.data.database.dao.RecipesDao;
+import com.example.baking.data.database.dao.StepsDao;
+import com.example.baking.data.database.entity.Ingredient;
+import com.example.baking.data.database.entity.Recipe;
+import com.example.baking.data.database.entity.Step;
 
-@Database(entities = {Recipe.class, Ingredients.class, Steps.class}, version = 1)
+import timber.log.Timber;
+
+@Database(entities = {Recipe.class, Ingredient.class, Step.class}, version = 1, exportSchema = false)
 @TypeConverters(DateConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
     private static final String DATABASE_NAME = "recipes_database";
@@ -24,7 +28,7 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
-            new PopulateDbAsync(sInstance).execute();
+            Timber.v("Database is opened.");
         }
     };
     
@@ -41,17 +45,7 @@ public abstract class AppDatabase extends RoomDatabase {
     
     public abstract RecipesDao recipesDao();
     
-    private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
-        private final RecipesDao mDao;
-        
-        PopulateDbAsync(AppDatabase db) {
-            mDao = db.recipesDao();
-        }
-        
-        @Override
-        protected Void doInBackground(final Void... params) {
-            // ... do something.
-            return null;
-        }
-    }
+    public abstract IngredientsDao ingredientsDao();
+    
+    public abstract StepsDao stepsDao();
 }
