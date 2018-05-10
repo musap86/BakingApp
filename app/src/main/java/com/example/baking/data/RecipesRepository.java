@@ -21,14 +21,14 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import timber.log.Timber;
 
-public class Repository {
+public class RecipesRepository {
     private final String BASE_URL = "http://go.udacity.com/";
     private RecipesDao mRecipesDao;
     private LiveData<List<Recipe>> mAllRecipes;
     private Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
     private Webservice mWebservice = retrofit.create(Webservice.class);
     
-    Repository(Application application) {
+    RecipesRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         mRecipesDao = db.recipesDao();
         mAllRecipes = mRecipesDao.getAllRecipes();
