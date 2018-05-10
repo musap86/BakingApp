@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.baking.R;
-import com.example.baking.data.entities.Recipe;
+import com.example.baking.data.database.entities.Recipe;
 
 import java.util.List;
 

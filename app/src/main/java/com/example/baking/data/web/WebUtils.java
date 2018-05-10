@@ -1,10 +1,10 @@
-package com.example.baking.network;
+package com.example.baking.data.web;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-public class NetworkUtils {
+public class WebUtils {
     /**
      * Returns if the user is online or not.
      */

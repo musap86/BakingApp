@@ -1,4 +1,4 @@
-package com.example.baking.network;
+package com.example.baking.data.web;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
