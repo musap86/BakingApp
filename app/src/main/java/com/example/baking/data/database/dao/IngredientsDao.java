@@ -5,16 +5,15 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
-
 import com.example.baking.data.database.entity.Ingredient;
 
 import java.util.List;
 
 @Dao
 public interface IngredientsDao extends BakingDao {
-    
-    @Query("SELECT * from ingredients ORDER BY ingredientId")
-    LiveData<List<Ingredient>> getAll();
+
+    @Query("SELECT * from ingredients WHERE recipe_id = :recipeId ORDER BY _id")
+    LiveData<List<Ingredient>> get(int recipeId);
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Ingredient ingredient);

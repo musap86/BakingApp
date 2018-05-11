@@ -11,11 +11,12 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
 @SuppressWarnings("NullableProblems")
 @Entity(tableName = "steps")
 public class Step extends BakingEntity {
-    
-    @PrimaryKey(autoGenerate = true)
+
+    @PrimaryKey
     @NonNull
+    @ColumnInfo(name = "_id")
+    public int id;
     public int stepId;
-    
     public String shortDescription;
     public String description;
     public String videoURL;
@@ -24,8 +25,10 @@ public class Step extends BakingEntity {
     @ForeignKey(entity = Recipe.class, parentColumns = "id", childColumns = "recipe_id", onDelete = CASCADE)
     @ColumnInfo(name = "recipe_id")
     public int recipeId;
-    
-    public Step(String shortDescription, String description, String videoURL, String thumbnailURL, int recipeId) {
+
+    public Step(@NonNull int id, int stepId, String shortDescription, String description, String videoURL, String thumbnailURL, int recipeId) {
+        this.id = id;
+        this.stepId = stepId;
         this.shortDescription = shortDescription;
         this.description = description;
         this.videoURL = videoURL;

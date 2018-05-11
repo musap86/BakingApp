@@ -7,15 +7,12 @@ import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 import android.support.annotation.NonNull;
-
 import com.example.baking.data.database.dao.IngredientsDao;
 import com.example.baking.data.database.dao.RecipesDao;
 import com.example.baking.data.database.dao.StepsDao;
 import com.example.baking.data.database.entity.Ingredient;
 import com.example.baking.data.database.entity.Recipe;
 import com.example.baking.data.database.entity.Step;
-
-import timber.log.Timber;
 
 @Database(entities = {Recipe.class, Ingredient.class, Step.class}, version = 1, exportSchema = false)
 @TypeConverters(DateConverter.class)
@@ -28,7 +25,6 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
-            Timber.v("Database is opened.");
         }
     };
     

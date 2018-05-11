@@ -40,7 +40,7 @@ public class RecipeJsonModel {
     public class StepJsonModel {
         @SerializedName("id")
         @Expose
-        public String id;
+        public int id;
         @SerializedName("shortDescription")
         @Expose
         public String shortDescription;

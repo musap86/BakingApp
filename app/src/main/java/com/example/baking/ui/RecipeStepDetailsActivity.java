@@ -3,7 +3,6 @@ package com.example.baking.ui;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-
 import com.example.baking.R;
 import com.example.baking.ui.fragments.MediaPlayerFragment;
 import com.example.baking.ui.fragments.StepInstructionFragment;
@@ -18,12 +17,12 @@ public class RecipeStepDetailsActivity extends AppCompatActivity {
         
         MediaPlayerFragment mediaPlayerFragment = new MediaPlayerFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().add(R.id.media_player_container, mediaPlayerFragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.media_player_container, mediaPlayerFragment).commit();
         
         StepInstructionFragment stepInstructionFragment = new StepInstructionFragment();
-        fragmentManager.beginTransaction().add(R.id.step_instruction_container, stepInstructionFragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.step_instruction_container, stepInstructionFragment).commit();
         
         StepNavigationFragment stepNavigationFragment = new StepNavigationFragment();
-        fragmentManager.beginTransaction().add(R.id.step_navigation_container, stepNavigationFragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.step_navigation_container, stepNavigationFragment).commit();
     }
 }
