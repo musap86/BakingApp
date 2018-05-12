@@ -4,6 +4,7 @@ import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+
 import com.example.baking.data.database.AppDatabase;
 import com.example.baking.data.database.dao.BakingDao;
 import com.example.baking.data.database.dao.IngredientsDao;
@@ -15,14 +16,15 @@ import com.example.baking.data.database.entity.Recipe;
 import com.example.baking.data.database.entity.Step;
 import com.example.baking.data.web.RecipeJsonModel;
 import com.example.baking.data.web.Webservice;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class RecipesRepository {
     private final String BASE_URL = "http://go.udacity.com/";
@@ -45,7 +47,11 @@ public class RecipesRepository {
     }
 
     LiveData<List<Step>> getSteps(int recipeId) {
-        return mStepsDao.get(recipeId);
+        return mStepsDao.getSteps(recipeId);
+    }
+
+    LiveData<Step> getStep(int id) {
+        return mStepsDao.getStep(id);
     }
 
     LiveData<List<Ingredient>> getIngredients(int recipeId) {

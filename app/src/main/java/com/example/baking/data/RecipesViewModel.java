@@ -3,6 +3,7 @@ package com.example.baking.data;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+
 import com.example.baking.data.database.entity.Ingredient;
 import com.example.baking.data.database.entity.Recipe;
 import com.example.baking.data.database.entity.Step;
@@ -29,6 +30,10 @@ public class RecipesViewModel extends AndroidViewModel {
 
     public LiveData<List<Step>> getSteps(int recipeId) {
         return mRepository.getSteps(recipeId);
+    }
+
+    public LiveData<Step> getStep(int id) {
+        return mRepository.getStep(id);
     }
 
     public LiveData<List<Ingredient>> getIngredients(int recipeId) {

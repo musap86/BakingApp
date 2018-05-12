@@ -7,16 +7,17 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.example.baking.R;
 import com.example.baking.data.database.entity.Recipe;
 
 import java.util.List;
 
-public class RecipeCardsAdapter extends RecyclerView.Adapter<RecipeCardsAdapter.RecipeCardViewHolder> {
+public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeCardViewHolder> {
     private final RecipeClickListener mRecipeClickListener;
     private List<Recipe> mRecipes;
 
-    public RecipeCardsAdapter(RecipeClickListener recipeClickListener) {
+    public RecipeAdapter(RecipeClickListener recipeClickListener) {
         mRecipeClickListener = recipeClickListener;
     }
 
@@ -54,6 +55,7 @@ public class RecipeCardsAdapter extends RecyclerView.Adapter<RecipeCardsAdapter.
         private TextView recipeImageTextView;
         private TextView recipeServingsTextView;
         private int recipeId;
+        private String recipeName;
 
         private RecipeCardViewHolder(View itemView) {
             super(itemView);
@@ -66,14 +68,15 @@ public class RecipeCardsAdapter extends RecyclerView.Adapter<RecipeCardsAdapter.
         private void bind(int position) {
             Recipe current = mRecipes.get(position);
             recipeId = current.id;
-            recipeNameTextView.setText(current.name);
+            recipeName = current.name;
+            recipeNameTextView.setText(recipeName);
             recipeServingsTextView.setText(current.servings);
             recipeImageTextView.setText(current.image);
         }
 
         @Override
         public void onClick(View v) {
-            mRecipeClickListener.onRecipeDataItemClick(recipeId);
+            mRecipeClickListener.onRecipeClick(recipeId, recipeName);
         }
     }
 }

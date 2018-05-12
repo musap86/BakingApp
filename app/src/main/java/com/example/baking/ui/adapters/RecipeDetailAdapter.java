@@ -7,24 +7,25 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.example.baking.R;
 import com.example.baking.data.database.entity.Step;
 
 import java.util.List;
 
-public class MasterListAdapter extends RecyclerView.Adapter<MasterListAdapter.RecipeStepsViewHolder> {
-    private final RecipeClickListener mOnClickListener;
+public class RecipeDetailAdapter extends RecyclerView.Adapter<RecipeDetailAdapter.RecipeStepsViewHolder> {
+    private final RecipeStepClickListener mOnClickListener;
     private List<Step> mSteps;
 
-    public MasterListAdapter(RecipeClickListener recipeClickListener) {
-        mOnClickListener = recipeClickListener;
+    public RecipeDetailAdapter(RecipeStepClickListener recipeStepClickListener) {
+        mOnClickListener = recipeStepClickListener;
     }
     
     @NonNull
     @Override
     public RecipeStepsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.recipe_step_description_item, parent, false);
+        View view = inflater.inflate(R.layout.recipe_step_item, parent, false);
         return new RecipeStepsViewHolder(view);
     }
     
@@ -51,7 +52,7 @@ public class MasterListAdapter extends RecyclerView.Adapter<MasterListAdapter.Re
 
     public class RecipeStepsViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
         private final TextView stepDescriptionTextView;
-        private int stepId;
+        private int id;
 
         private RecipeStepsViewHolder(View itemView) {
             super(itemView);
@@ -61,13 +62,13 @@ public class MasterListAdapter extends RecyclerView.Adapter<MasterListAdapter.Re
 
         private void bind(int position) {
             Step current = mSteps.get(position);
-            stepId = current.stepId;
+            id = current.id;
             stepDescriptionTextView.setText(current.shortDescription);
         }
 
         @Override
         public void onClick(View v) {
-            mOnClickListener.onRecipeDataItemClick(stepId);
+            mOnClickListener.onRecipeStepClick(id);
         }
 
     }

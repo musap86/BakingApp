@@ -8,25 +8,26 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
 import com.example.baking.R;
 import com.example.baking.data.RecipesViewModel;
 import com.example.baking.data.database.entity.Recipe;
 import com.example.baking.data.web.WebUtils;
-import com.example.baking.ui.adapters.RecipeCardsAdapter;
+import com.example.baking.ui.adapters.RecipeAdapter;
 import com.example.baking.ui.adapters.RecipeClickListener;
 
 import java.util.List;
 
 // Select a recipe.
-public class MainActivity extends AppCompatActivity implements RecipeClickListener {
+public class RecipesActivity extends AppCompatActivity implements RecipeClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_recipes);
 
         // Set up a recycler view for recipe cards.
-        final RecipeCardsAdapter adapter = new RecipeCardsAdapter(this);
+        final RecipeAdapter adapter = new RecipeAdapter(this);
         RecyclerView mRecipesRecyclerView = findViewById(R.id.rv_recipe_select);
         mRecipesRecyclerView.setAdapter(adapter);
         mRecipesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -51,9 +52,10 @@ public class MainActivity extends AppCompatActivity implements RecipeClickListen
     }
 
     @Override
-    public void onRecipeDataItemClick(int id) {
-        Intent intent = new Intent(MainActivity.this, RecipeDetailActivity.class);
-        intent.putExtra("id", id);
+    public void onRecipeClick(int recipeId, String recipeName) {
+        Intent intent = new Intent(RecipesActivity.this, RecipeDetailActivity.class);
+        intent.putExtra("id", recipeId);
+        intent.putExtra("name", recipeName);
         startActivity(intent);
     }
 }
