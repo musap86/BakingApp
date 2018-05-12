@@ -10,8 +10,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.baking.R;
+import com.example.baking.data.database.entity.Ingredient;
 import com.example.baking.data.database.entity.Step;
 import com.example.baking.ui.adapters.RecipeDetailAdapter;
 import com.example.baking.ui.adapters.RecipeStepClickListener;
@@ -40,6 +42,19 @@ public class RecipeDetailFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
+
+        List<Ingredient> ingredients = getArguments().getParcelableArrayList("ingredients");
+
+        TextView ingredientsTextView = rootView.findViewById(R.id.tv_ingredients_list);
+        StringBuilder ingredientList = new StringBuilder();
+        for (Ingredient ingredient : ingredients) {
+            ingredientList
+                    .append("* ")
+                    .append(ingredient.quantity).append(" ")
+                    .append(ingredient.measure).append(" ")
+                    .append(ingredient.ingredient).append("\n");
+        }
+        ingredientsTextView.setText(ingredientList);
 
         RecyclerView recyclerView = rootView.findViewById(R.id.rv_recipe_steps);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

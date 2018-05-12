@@ -8,4 +8,18 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="CardListItem" parent="CardView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="cardCornerRadius">8dp</item>
+    </style>
+
+    <style name="StepsNavigationButtons" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="background">@color/colorAccent</item>
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">60dp</item>
+    </style>
+
 </resources>

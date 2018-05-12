@@ -4,13 +4,15 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 @SuppressWarnings("NullableProblems")
 @Entity(tableName = "ingredients")
-public class Ingredient extends BakingEntity {
+public class Ingredient extends BakingEntity implements Parcelable {
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "_id")
@@ -28,5 +30,39 @@ public class Ingredient extends BakingEntity {
         this.measure = measure;
         this.ingredient = ingredient;
         this.recipeId = recipeId;
+    }
+
+
+    public static final Parcelable.Creator<Ingredient> CREATOR
+            = new Parcelable.Creator<Ingredient>() {
+        public Ingredient createFromParcel(Parcel in) {
+            return new Ingredient(in);
+        }
+
+        public Ingredient[] newArray(int size) {
+            return new Ingredient[size];
+        }
+    };
+
+    private Ingredient(Parcel in) {
+        id = in.readInt();
+        recipeId = in.readInt();
+        quantity = in.readString();
+        measure = in.readString();
+        ingredient = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeInt(recipeId);
+        dest.writeString(quantity);
+        dest.writeString(measure);
+        dest.writeString(ingredient);
     }
 }

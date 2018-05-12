@@ -29,7 +29,11 @@ public class RecipeStepDetailsActivity extends AppCompatActivity implements Step
             getSupportActionBar().setTitle(recipeName);
         }
 
-        mId = getIntent().getIntExtra("id", 101);
+        if (savedInstanceState != null) {
+            mId = savedInstanceState.getInt("id");
+        } else {
+            mId = getIntent().getIntExtra("id", 101);
+        }
         populateStepDetails(mId);
     }
 
@@ -57,6 +61,12 @@ public class RecipeStepDetailsActivity extends AppCompatActivity implements Step
                 fragmentManager.beginTransaction().replace(R.id.step_navigation_container, stepNavigationFragment).commit();
             }
         });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("id", mId);
     }
 
     @Override

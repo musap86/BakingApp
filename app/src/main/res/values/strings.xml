@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Baking Time</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="no_video">No video available for this step.</string>
+    <string name="previous_step">Previous Step</string>
+    <string name="next_step">Next Step</string>
 </resources>

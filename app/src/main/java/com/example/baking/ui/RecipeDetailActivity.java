@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.baking.R;
 import com.example.baking.data.RecipesViewModel;
+import com.example.baking.data.database.entity.Ingredient;
 import com.example.baking.data.database.entity.Step;
 import com.example.baking.ui.adapters.RecipeStepClickListener;
 import com.example.baking.ui.fragments.RecipeDetailFragment;
@@ -31,19 +32,25 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
             getSupportActionBar().setTitle(recipeName);
         }
 
-        final RecipeDetailFragment masterListFragment = new RecipeDetailFragment();
+        final RecipeDetailFragment recipeDetailFragment = new RecipeDetailFragment();
         final FragmentManager fragmentManager = getSupportFragmentManager();
-        int id = getIntent().getIntExtra("id", 1);
+        final int id = getIntent().getIntExtra("id", 1);
 
-        RecipesViewModel viewModel = ViewModelProviders.of(this).get(RecipesViewModel.class);
+        final RecipesViewModel viewModel = ViewModelProviders.of(this).get(RecipesViewModel.class);
         viewModel.getSteps(id).observe(this, new Observer<List<Step>>() {
             @Override
-            public void onChanged(@Nullable List<Step> steps) {
+            public void onChanged(@Nullable final List<Step> steps) {
                 mStepCount = steps.size();
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList("steps", (ArrayList<Step>) steps);
-                masterListFragment.setArguments(bundle);
-                fragmentManager.beginTransaction().replace(R.id.recipe_steps_container, masterListFragment).commit();
+                viewModel.getIngredients(id).observe(RecipeDetailActivity.this, new Observer<List<Ingredient>>() {
+                    @Override
+                    public void onChanged(@Nullable List<Ingredient> ingredients) {
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelableArrayList("steps", (ArrayList<Step>) steps);
+                        bundle.putParcelableArrayList("ingredients", (ArrayList<Ingredient>) ingredients);
+                        recipeDetailFragment.setArguments(bundle);
+                        fragmentManager.beginTransaction().replace(R.id.recipe_steps_container, recipeDetailFragment).commit();
+                    }
+                });
             }
         });
 
