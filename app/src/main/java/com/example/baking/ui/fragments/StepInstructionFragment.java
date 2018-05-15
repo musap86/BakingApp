@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.example.baking.R;
 
+import java.util.Objects;
+
 public class StepInstructionFragment extends Fragment {
 
     public StepInstructionFragment() {
@@ -24,7 +26,7 @@ public class StepInstructionFragment extends Fragment {
 
         TextView textView = rootView.findViewById(R.id.tv_step_instruction);
 
-        String description = getArguments().getString("description");
+        String description = Objects.requireNonNull(getArguments()).getString("description");
 
         textView.setText(description);
 

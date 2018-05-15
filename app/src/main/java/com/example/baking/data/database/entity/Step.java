@@ -10,7 +10,7 @@ import android.support.annotation.NonNull;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
-@SuppressWarnings("NullableProblems")
+@SuppressWarnings({"NullableProblems", "WeakerAccess", "CanBeFinal"})
 @Entity(tableName = "steps")
 public class Step extends BakingEntity implements Parcelable {
     public static final Parcelable.Creator<Step> CREATOR

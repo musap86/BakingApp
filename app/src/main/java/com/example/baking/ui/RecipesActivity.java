@@ -1,22 +1,18 @@
 package com.example.baking.ui;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.baking.R;
-import com.example.baking.data.RecipesViewModel;
-import com.example.baking.data.database.entity.Recipe;
+import com.example.baking.data.RecipeViewModel;
 import com.example.baking.data.web.WebUtils;
 import com.example.baking.ui.adapters.RecipeAdapter;
 import com.example.baking.ui.adapters.RecipeClickListener;
-
-import java.util.List;
 
 // Select a recipe.
 public class RecipesActivity extends AppCompatActivity implements RecipeClickListener {
@@ -26,25 +22,28 @@ public class RecipesActivity extends AppCompatActivity implements RecipeClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
 
+        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
+        boolean isLandscapeTablet = getResources().getBoolean(R.bool.isLandscapeTablet);
         // Set up a recycler view for recipe cards.
-        final RecipeAdapter adapter = new RecipeAdapter(this);
-        RecyclerView mRecipesRecyclerView = findViewById(R.id.rv_recipe_select);
-        mRecipesRecyclerView.setAdapter(adapter);
-        mRecipesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecipesRecyclerView.setHasFixedSize(true);
+        final RecipeAdapter recipeAdapter = new RecipeAdapter(this);
+        RecyclerView mRecipeRecyclerView = findViewById(R.id.rv_recipe_select);
+        mRecipeRecyclerView.setAdapter(recipeAdapter);
+        if (isLandscapeTablet) {
+            mRecipeRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        } else if (isTablet) {
+            mRecipeRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        } else {
+            mRecipeRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        }
+        mRecipeRecyclerView.setHasFixedSize(true);
 
         // Use ViewModelProviders to associate ViewModel with UI controller.
         // * When app first starts, the ViewModelProviders will create the ViewModel.
         // * When the activity is destroyed, through a configuration change, the ViewModel persists.
         // * When the activity is re-created, the ViewModelProviders return the existing ViewModel.
-        RecipesViewModel viewModel = ViewModelProviders.of(this).get(RecipesViewModel.class);
+        RecipeViewModel viewModel = ViewModelProviders.of(this).get(RecipeViewModel.class);
 
-        viewModel.getAllRecipes().observe(this, new Observer<List<Recipe>>() {
-            @Override
-            public void onChanged(@Nullable List<Recipe> recipes) {
-                adapter.setRecipes(recipes);
-            }
-        });
+        viewModel.getAllRecipes().observe(this, recipeAdapter::setRecipes);
 
         if (WebUtils.isOnline(this)) {
             viewModel.refreshRecipes();
@@ -56,6 +55,8 @@ public class RecipesActivity extends AppCompatActivity implements RecipeClickLis
         Intent intent = new Intent(RecipesActivity.this, RecipeDetailActivity.class);
         intent.putExtra("id", recipeId);
         intent.putExtra("name", recipeName);
+        boolean isStartedByWidget = getIntent().getBooleanExtra("widget", false);
+        intent.putExtra("widget", isStartedByWidget);
         startActivity(intent);
     }
 }

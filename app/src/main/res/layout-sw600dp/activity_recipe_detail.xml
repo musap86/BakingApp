@@ -1,53 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
     <FrameLayout
         android:id="@+id/recipe_steps_container"
-        android:layout_width="400dp"
+        android:layout_width="350dp"
         android:layout_height="match_parent"
         android:scaleType="centerInside" />
 
     <View
-        android:layout_width="1dp"
+        android:layout_width="2dp"
         android:layout_height="match_parent"
-        android:background="@android:color/darker_gray" />
+        android:background="@android:color/darker_gray"
+        android:paddingEnd="32dp"
+        android:paddingStart="32dp" />
 
-    <ScrollView xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
+        android:id="@+id/linear_layout_step_details"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.RecipeStepDetailsActivity">
+        android:orientation="vertical"
+        android:padding="16dp"
+        tools:ignore="InconsistentLayout">
 
-        <LinearLayout
-            android:id="@+id/linear_layout_step_details"
+        <FrameLayout
+            android:id="@+id/media_player_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:scaleType="centerInside"
+            tools:ignore="InconsistentLayout" />
 
-            <FrameLayout
-                android:id="@+id/media_player_container"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:scaleType="centerInside" />
+        <ScrollView
+            android:id="@+id/step_instruction_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:scaleType="centerInside"
+            tools:ignore="InconsistentLayout" />
 
-            <FrameLayout
-                android:id="@+id/step_instruction_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="centerInside" />
-
-            <FrameLayout
-                android:id="@+id/step_navigation_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="centerInside"
-                android:visibility="gone" />
-
-        </LinearLayout>
-
-    </ScrollView>
+    </LinearLayout>
 
 </LinearLayout>

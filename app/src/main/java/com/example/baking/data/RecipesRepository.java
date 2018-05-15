@@ -26,13 +26,13 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RecipesRepository {
+class RecipesRepository {
     private final String BASE_URL = "http://go.udacity.com/";
-    private RecipesDao mRecipesDao;
-    private IngredientsDao mIngredientsDao;
-    private StepsDao mStepsDao;
-    private Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
-    private Webservice mWebservice = retrofit.create(Webservice.class);
+    private final RecipesDao mRecipesDao;
+    private final IngredientsDao mIngredientsDao;
+    private final StepsDao mStepsDao;
+    private final Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+    private final Webservice mWebservice = retrofit.create(Webservice.class);
 
     RecipesRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
@@ -104,7 +104,7 @@ public class RecipesRepository {
     }
 
     private static class InsertAsyncTask extends AsyncTask<BakingEntity, Void, Void> {
-        private BakingDao mAsyncTaskDao;
+        private final BakingDao mAsyncTaskDao;
 
         InsertAsyncTask(BakingDao dao) {
             mAsyncTaskDao = dao;

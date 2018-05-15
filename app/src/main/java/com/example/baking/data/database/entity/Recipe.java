@@ -4,7 +4,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-@SuppressWarnings("NullableProblems")
+@SuppressWarnings({"NullableProblems", "CanBeFinal", "WeakerAccess"})
 @Entity(tableName = "recipes")
 public class Recipe extends BakingEntity {
     @PrimaryKey

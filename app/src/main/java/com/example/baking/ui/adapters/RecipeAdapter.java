@@ -51,17 +51,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeCard
     }
 
     class RecipeCardViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
-        private TextView recipeNameTextView;
-        private TextView recipeImageTextView;
-        private TextView recipeServingsTextView;
+        private final TextView recipeNameTextView;
         private int recipeId;
         private String recipeName;
 
         private RecipeCardViewHolder(View itemView) {
             super(itemView);
             recipeNameTextView = itemView.findViewById(R.id.tv_recipe_name);
-            recipeServingsTextView = itemView.findViewById(R.id.tv_recipe_servings);
-            recipeImageTextView = itemView.findViewById(R.id.tv_recipe_image);
             itemView.setOnClickListener(this);
         }
 
@@ -70,8 +66,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeCard
             recipeId = current.id;
             recipeName = current.name;
             recipeNameTextView.setText(recipeName);
-            recipeServingsTextView.setText(current.servings);
-            recipeImageTextView.setText(current.image);
         }
 
         @Override

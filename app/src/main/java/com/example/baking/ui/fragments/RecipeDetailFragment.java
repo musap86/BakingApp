@@ -10,15 +10,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.baking.R;
-import com.example.baking.data.database.entity.Ingredient;
 import com.example.baking.data.database.entity.Step;
 import com.example.baking.ui.adapters.RecipeDetailAdapter;
 import com.example.baking.ui.adapters.RecipeStepClickListener;
 
 import java.util.List;
+import java.util.Objects;
 
 public class RecipeDetailFragment extends Fragment {
 
@@ -43,19 +42,6 @@ public class RecipeDetailFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
 
-        List<Ingredient> ingredients = getArguments().getParcelableArrayList("ingredients");
-
-        TextView ingredientsTextView = rootView.findViewById(R.id.tv_ingredients_list);
-        StringBuilder ingredientList = new StringBuilder();
-        for (Ingredient ingredient : ingredients) {
-            ingredientList
-                    .append("* ")
-                    .append(ingredient.quantity).append(" ")
-                    .append(ingredient.measure).append(" ")
-                    .append(ingredient.ingredient).append("\n");
-        }
-        ingredientsTextView.setText(ingredientList);
-
         RecyclerView recyclerView = rootView.findViewById(R.id.rv_recipe_steps);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
@@ -63,7 +49,7 @@ public class RecipeDetailFragment extends Fragment {
         final RecipeDetailAdapter adapter = new RecipeDetailAdapter(mCallBack);
         recyclerView.setAdapter(adapter);
 
-        List<Step> steps = getArguments().getParcelableArrayList("steps");
+        List<Step> steps = Objects.requireNonNull(getArguments()).getParcelableArrayList("steps");
 
         adapter.setRecipes(steps);
 

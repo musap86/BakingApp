@@ -16,6 +16,7 @@ import java.util.List;
 public class RecipeDetailAdapter extends RecyclerView.Adapter<RecipeDetailAdapter.RecipeStepsViewHolder> {
     private final RecipeStepClickListener mOnClickListener;
     private List<Step> mSteps;
+    public static final int INGREDIENT_ID = 99;
 
     public RecipeDetailAdapter(RecipeStepClickListener recipeStepClickListener) {
         mOnClickListener = recipeStepClickListener;
@@ -31,17 +32,16 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecipeDetailAdapte
     
     @Override
     public void onBindViewHolder(@NonNull RecipeStepsViewHolder holder, int position) {
-        if (mSteps != null) {
             holder.bind(position);
-        }
     }
     
     @Override
     public int getItemCount() {
+        // Ingredients will be the first item on the list. It is added in this adapter.
         if (mSteps != null) {
-            return mSteps.size();
+            return mSteps.size() + 1;
         } else {
-            return 0;
+            return 1;
         }
     }
 
@@ -61,9 +61,14 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecipeDetailAdapte
         }
 
         private void bind(int position) {
-            Step current = mSteps.get(position);
-            id = current.id;
-            stepDescriptionTextView.setText(current.shortDescription);
+            if (position == 0) {
+                id = INGREDIENT_ID;
+                stepDescriptionTextView.setText(R.string.ingredients);
+            } else {
+                Step current = mSteps.get(position - 1);
+                id = current.id;
+                stepDescriptionTextView.setText(current.shortDescription);
+            }
         }
 
         @Override

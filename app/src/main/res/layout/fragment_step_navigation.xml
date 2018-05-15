@@ -7,7 +7,6 @@
     <Button
         android:id="@+id/button_previous"
         style="@style/StepsNavigationButtons"
-        android:paddingRight="32dp"
         android:text="@string/previous_step" />
 
     <Button

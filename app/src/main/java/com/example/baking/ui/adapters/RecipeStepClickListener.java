@@ -1,5 +1,5 @@
 package com.example.baking.ui.adapters;
 
 public interface RecipeStepClickListener {
-    void onRecipeStepClick(int databaseGeneratedStepId);
+    void onRecipeStepClick(int generatedStepId);
 }

@@ -12,6 +12,8 @@ import android.widget.Button;
 
 import com.example.baking.R;
 
+import java.util.Objects;
+
 public class StepNavigationFragment extends Fragment {
     private StepNavigator navigator;
 
@@ -37,7 +39,7 @@ public class StepNavigationFragment extends Fragment {
         Button next = rootView.findViewById(R.id.button_next);
         Button previous = rootView.findViewById(R.id.button_previous);
 
-        int id = getArguments().getInt("id");
+        int id = Objects.requireNonNull(getArguments()).getInt("id");
         id = id % 100;
 
         int stepCount = getArguments().getInt("stepCount");
@@ -51,19 +53,9 @@ public class StepNavigationFragment extends Fragment {
             next.setVisibility(View.GONE);
         }
 
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigator.goToNextStep();
-            }
-        });
+        next.setOnClickListener(v -> navigator.goToNextStep());
 
-        previous.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigator.goToPreviousStep();
-            }
-        });
+        previous.setOnClickListener(v -> navigator.goToPreviousStep());
 
         return rootView;
     }

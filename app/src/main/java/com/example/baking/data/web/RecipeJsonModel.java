@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+@SuppressWarnings({"unused", "CanBeFinal"})
 public class RecipeJsonModel {
     @SerializedName("id")
     @Expose
@@ -24,7 +25,7 @@ public class RecipeJsonModel {
     @SerializedName("image")
     @Expose
     public String image;
-    
+
     public class IngredientJsonModel {
         @SerializedName("quantity")
         @Expose
@@ -36,7 +37,7 @@ public class RecipeJsonModel {
         @Expose
         public String ingredient;
     }
-    
+
     public class StepJsonModel {
         @SerializedName("id")
         @Expose

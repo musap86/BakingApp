@@ -1,35 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linear_layout_step_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.RecipeStepDetailsActivity">
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <LinearLayout
-        android:id="@+id/linear_layout_step_details"
+    <FrameLayout
+        android:id="@+id/media_player_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:scaleType="centerInside" />
 
-        <FrameLayout
-            android:id="@+id/media_player_container"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerInside" />
+    <ScrollView
+        android:id="@+id/step_instruction_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:scaleType="centerInside"
+        tools:ignore="InconsistentLayout" />
 
-        <FrameLayout
-            android:id="@+id/step_instruction_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="centerInside" />
+    <FrameLayout
+        android:id="@+id/step_navigation_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scaleType="centerInside"
+        tools:ignore="InconsistentLayout" />
 
-        <FrameLayout
-            android:id="@+id/step_navigation_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="centerInside" />
-
-    </LinearLayout>
-
-</ScrollView>
+</LinearLayout>

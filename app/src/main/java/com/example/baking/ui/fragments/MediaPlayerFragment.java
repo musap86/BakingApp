@@ -27,6 +27,8 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
+import java.util.Objects;
+
 public class MediaPlayerFragment extends Fragment {
     private SimpleExoPlayer mPlayer;
     private PlayerView mPlayerView;
@@ -51,22 +53,48 @@ public class MediaPlayerFragment extends Fragment {
         mPlayerView = rootView.findViewById(R.id.pv_recipe_video);
         mPlayerView.setDefaultArtwork(BitmapFactory.decodeResource(getResources(), R.drawable.exo_controls_play));
 
-        String videoUrl = getArguments().getString("video");
-        String thumbnailUrl = getArguments().getString("thumbnail");
-        String url = (videoUrl != null && videoUrl.length() != 0 && videoUrl.endsWith("mp4")) ? videoUrl : thumbnailUrl;
-
-        if (url.length() != 0 && videoUrl.endsWith("mp4")) {
-            mPlayerView.setVisibility(View.VISIBLE);
-            textView.setVisibility(View.GONE);
-            Uri videoUri = Uri.parse(url);
-            initializePlayer(videoUri);
-        } else {
+        String ingredients = Objects.requireNonNull(getArguments()).getString("ingredients");
+        if (ingredients != null && ingredients.length() != 0) {
             mPlayerView.setVisibility(View.GONE);
             textView.setVisibility(View.VISIBLE);
-            textView.setText(getString(R.string.no_video));
+            textView.setText(ingredients);
+        } else {
+            String videoUrl = Objects.requireNonNull(getArguments()).getString("video");
+            String thumbnailUrl = getArguments().getString("thumbnail");
+            String url = (videoUrl != null && videoUrl.length() != 0 && videoUrl.endsWith("mp4")) ? videoUrl : thumbnailUrl;
+
+            if (url != null && url.length() != 0 && url.endsWith("mp4")) {
+                mPlayerView.setVisibility(View.VISIBLE);
+                textView.setVisibility(View.GONE);
+                Uri videoUri = Uri.parse(url);
+                initializePlayer(videoUri);
+            } else {
+                mPlayerView.setVisibility(View.GONE);
+                textView.setVisibility(View.VISIBLE);
+                textView.setText(getString(R.string.no_video));
+            }
         }
 
         return rootView;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        pausePlayer();
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        startPlayer();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        releasePlayer();
     }
 
     private void initializePlayer(Uri mp4VideoUri) {
@@ -78,9 +106,20 @@ public class MediaPlayerFragment extends Fragment {
             mPlayerView.setPlayer(mPlayer);
             DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(mContext,
                     Util.getUserAgent(mContext, getString(R.string.app_name)), bandwidthMeter);
-            MediaSource videoSource = new ExtractorMediaSource.Factory(dataSourceFactory)
-                    .createMediaSource(mp4VideoUri);
+            MediaSource videoSource = new ExtractorMediaSource.Factory(dataSourceFactory).createMediaSource(mp4VideoUri);
             mPlayer.prepare(videoSource);
+            mPlayer.setPlayWhenReady(false);
+        }
+    }
+
+    private void pausePlayer() {
+        if (mPlayer != null) {
+            mPlayer.setPlayWhenReady(false);
+        }
+    }
+
+    private void startPlayer() {
+        if (mPlayer != null) {
             mPlayer.setPlayWhenReady(true);
         }
     }
@@ -91,11 +130,5 @@ public class MediaPlayerFragment extends Fragment {
             mPlayer.release();
             mPlayer = null;
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        releasePlayer();
     }
 }
