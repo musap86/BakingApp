@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -21,7 +22,6 @@ import com.example.baking.ui.widget.RecipeIngredientsWidget;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class RecipeDetailActivity extends AppCompatActivity implements RecipeStepClickListener {
     private int mId;
@@ -30,6 +30,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
     private String mRecipeName;
     private boolean mTwoPane;
     private RecipeViewModel mViewModel;
+    private Bundle mMediaFragmentSavedInstanceState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,10 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
         String recipeName = getIntent().getStringExtra("name");
         if (recipeName != null) {
             mRecipeName = recipeName;
-            Objects.requireNonNull(getSupportActionBar()).setTitle(recipeName);
+            ActionBar actionBar = getSupportActionBar();
+            if (actionBar != null) {
+                getSupportActionBar().setTitle(recipeName);
+            }
         }
 
         if (savedInstanceState != null) {
@@ -51,6 +55,8 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
             mId = savedInstanceState.getInt("id");
             // ...or same ingredients.
             mRecipeId = savedInstanceState.getInt("recipeId");
+            // Video state of the media player fragment.
+            mMediaFragmentSavedInstanceState = savedInstanceState.getBundle("savedInstanceState");
         } else {
             // Get database id of selected recipe.
             mRecipeId = getIntent().getIntExtra("id", 1);
@@ -70,7 +76,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
 
     private void populateRecipeSteps(List<Step> steps) {
         // Step count is used to see if any step has a previous or next one.
-        mStepCount = Objects.requireNonNull(steps).size();
+        mStepCount = steps.size();
 
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList("steps", (ArrayList<Step>) steps);
@@ -91,42 +97,58 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
         if (id == RecipeDetailAdapter.INGREDIENT_ID) {
             instructionsView.setVisibility(View.GONE);
             mViewModel.getIngredients(mRecipeId).observe(this, ingredients -> {
-                Bundle bundle = new Bundle();
-                StringBuilder ingredientList = new StringBuilder();
-                ingredientList.append(mRecipeName).append(" ")
-                        .append(getString(R.string.ingredients)).append("\n\n");
-                for (Ingredient ingredient : Objects.requireNonNull(ingredients)) {
-                    ingredientList
-                            .append("* ")
-                            .append(ingredient.quantity).append(" ")
-                            .append(ingredient.measure).append(" ")
-                            .append(ingredient.ingredient).append("\n");
+                if (ingredients != null) {
+                    Bundle bundle = new Bundle();
+                    StringBuilder ingredientList = new StringBuilder();
+                    ingredientList.append(mRecipeName).append(" ")
+                            .append(getString(R.string.ingredients)).append("\n\n");
+                    for (Ingredient ingredient : ingredients) {
+                        ingredientList
+                                .append("* ")
+                                .append(ingredient.quantity).append(" ")
+                                .append(ingredient.measure).append(" ")
+                                .append(ingredient.ingredient).append("\n");
+                    }
+                    bundle.putString("ingredients", ingredientList.toString());
+                    mediaPlayerFragment.setArguments(bundle);
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.media_player_container, mediaPlayerFragment)
+                            .commit();
                 }
-                bundle.putString("ingredients", ingredientList.toString());
-                mediaPlayerFragment.setArguments(bundle);
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.media_player_container, mediaPlayerFragment)
-                        .commit();
             });
         } else {
             instructionsView.setVisibility(View.VISIBLE);
             final int stepCount = mStepCount;
             mViewModel.getStep(id).observe(this, step -> {
-                Bundle bundle = new Bundle();
-                bundle.putString("video", Objects.requireNonNull(step).videoURL);
-                bundle.putString("thumbnail", step.thumbnailURL);
-                bundle.putString("description", step.description);
-                bundle.putInt("stepCount", stepCount);
-                bundle.putInt("id", id);
-                StepInstructionFragment stepInstructionFragment = new StepInstructionFragment();
-                stepInstructionFragment.setArguments(bundle);
-                mediaPlayerFragment.setArguments(bundle);
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.media_player_container, mediaPlayerFragment)
-                        .replace(R.id.step_instruction_container, stepInstructionFragment)
-                        .commit();
+                if (step != null) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("video", step.videoURL);
+                    bundle.putString("thumbnail", step.thumbnailURL);
+                    bundle.putString("description", step.description);
+                    bundle.putInt("stepCount", stepCount);
+                    bundle.putInt("id", id);
+                    if (mMediaFragmentSavedInstanceState != null) {
+                        // Another step should start from the beginning.
+                        int stepId = mMediaFragmentSavedInstanceState.getInt("stepId");
+                        if (stepId != mId) {
+                            mMediaFragmentSavedInstanceState = null;
+                        }
+                    }
+                    bundle.putBundle("savedInstanceState", mMediaFragmentSavedInstanceState);
+                    StepInstructionFragment stepInstructionFragment = new StepInstructionFragment();
+                    stepInstructionFragment.setArguments(bundle);
+                    mediaPlayerFragment.setArguments(bundle);
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.media_player_container, mediaPlayerFragment)
+                            .replace(R.id.step_instruction_container, stepInstructionFragment)
+                            .commit();
+                }
             });
         }
+    }
+
+    public void fromMediaFragment(Bundle fragmentOutState) {
+        mMediaFragmentSavedInstanceState = fragmentOutState;
     }
 
     @Override
@@ -134,6 +156,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
         super.onSaveInstanceState(outState);
         outState.putInt("id", mId);
         outState.putInt("recipeId", mRecipeId);
+        outState.putBundle("savedInstanceState", mMediaFragmentSavedInstanceState);
     }
 
     @Override
@@ -153,24 +176,26 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
 
     private void populateRecipeIngredientWidget() {
         mViewModel.getIngredients(mRecipeId).observe(this, ingredients -> {
-            StringBuilder ingredientList = new StringBuilder();
-            ingredientList.append(mRecipeName).append(" ")
-                    .append(getString(R.string.ingredients)).append("\n\n");
-            for (Ingredient ingredient : Objects.requireNonNull(ingredients)) {
-                ingredientList
-                        .append("* ")
-                        .append(ingredient.quantity).append(" ")
-                        .append(ingredient.measure).append(" ")
-                        .append(ingredient.ingredient).append("\n");
-            }
-            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(RecipeDetailActivity.this);
-            int[] appWidgetIds = appWidgetManager.getAppWidgetIds(
-                    new ComponentName(RecipeDetailActivity.this, RecipeIngredientsWidget.class));
-            RecipeIngredientsWidget.updateRecipeIngredientsWidget(RecipeDetailActivity.this, appWidgetManager,
-                    ingredientList.toString(), appWidgetIds);
+            if (ingredients != null) {
+                StringBuilder ingredientList = new StringBuilder();
+                ingredientList.append(mRecipeName).append(" ")
+                        .append(getString(R.string.ingredients)).append("\n\n");
+                for (Ingredient ingredient : ingredients) {
+                    ingredientList
+                            .append("* ")
+                            .append(ingredient.quantity).append(" ")
+                            .append(ingredient.measure).append(" ")
+                            .append(ingredient.ingredient).append("\n");
+                }
+                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(RecipeDetailActivity.this);
+                int[] appWidgetIds = appWidgetManager.getAppWidgetIds(
+                        new ComponentName(RecipeDetailActivity.this, RecipeIngredientsWidget.class));
+                RecipeIngredientsWidget.updateRecipeIngredientsWidget(RecipeDetailActivity.this, appWidgetManager,
+                        ingredientList.toString(), appWidgetIds);
 
-            finish();
-            moveTaskToBack(true);
+                finish();
+                moveTaskToBack(true);
+            }
         });
     }
 }

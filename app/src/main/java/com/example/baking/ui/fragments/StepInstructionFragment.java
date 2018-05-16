@@ -11,8 +11,6 @@ import android.widget.TextView;
 
 import com.example.baking.R;
 
-import java.util.Objects;
-
 public class StepInstructionFragment extends Fragment {
 
     public StepInstructionFragment() {
@@ -23,11 +21,13 @@ public class StepInstructionFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_step_instruction, container, false);
-
         TextView textView = rootView.findViewById(R.id.tv_step_instruction);
 
-        String description = Objects.requireNonNull(getArguments()).getString("description");
-
+        String description = "";
+        Bundle args = getArguments();
+        if (args != null) {
+            description = args.getString("description");
+        }
         textView.setText(description);
 
         return rootView;

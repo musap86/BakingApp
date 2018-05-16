@@ -49,6 +49,11 @@ dependencies {
     // Exoplayer
     // For playing audio and video both locally and over the Internet.
     implementation 'com.google.android.exoplayer:exoplayer:2.7.3'
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.7.3'
+    implementation 'com.google.android.exoplayer:exoplayer-dash:2.7.3'
+    implementation 'com.google.android.exoplayer:exoplayer-hls:2.7.3'
+    implementation 'com.google.android.exoplayer:exoplayer-smoothstreaming:2.7.3'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.7.3'
     // Room
     // An abstraction layer over SQLite to allow fluent database access.
     implementation 'android.arch.persistence.room:runtime:1.1.0'

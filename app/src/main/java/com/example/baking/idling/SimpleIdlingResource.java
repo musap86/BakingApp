@@ -15,10 +15,8 @@
  */
 package com.example.baking.idling;
 
-import android.support.annotation.Nullable;
 import android.support.test.espresso.IdlingResource;
 
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -32,7 +30,7 @@ public class SimpleIdlingResource implements IdlingResource {
 
     // Idleness is controlled with this boolean.
     private final AtomicBoolean mIsIdleNow = new AtomicBoolean(true);
-    @Nullable
+
     private volatile ResourceCallback mCallback;
 
     @Override
@@ -58,7 +56,7 @@ public class SimpleIdlingResource implements IdlingResource {
     public void setIdleState(boolean isIdleNow) {
         mIsIdleNow.set(isIdleNow);
         if (isIdleNow && mCallback != null) {
-            Objects.requireNonNull(mCallback).onTransitionToIdle();
+            mCallback.onTransitionToIdle();
         }
     }
 }

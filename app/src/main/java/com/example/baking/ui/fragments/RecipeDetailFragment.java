@@ -17,7 +17,6 @@ import com.example.baking.ui.adapters.RecipeDetailAdapter;
 import com.example.baking.ui.adapters.RecipeStepClickListener;
 
 import java.util.List;
-import java.util.Objects;
 
 public class RecipeDetailFragment extends Fragment {
 
@@ -49,9 +48,11 @@ public class RecipeDetailFragment extends Fragment {
         final RecipeDetailAdapter adapter = new RecipeDetailAdapter(mCallBack);
         recyclerView.setAdapter(adapter);
 
-        List<Step> steps = Objects.requireNonNull(getArguments()).getParcelableArrayList("steps");
-
-        adapter.setRecipes(steps);
+        Bundle args = getArguments();
+        if (args != null) {
+            List<Step> steps = args.getParcelableArrayList("steps");
+            adapter.setRecipes(steps);
+        }
 
         return rootView;
     }

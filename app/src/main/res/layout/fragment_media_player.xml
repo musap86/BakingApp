@@ -8,6 +8,12 @@
         android:id="@+id/tv_media_player"
         style="@style/AppTexts" />
 
+    <ImageView
+        android:id="@+id/iv_recipe_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/recipe_image_description" />
+
     <com.google.android.exoplayer2.ui.PlayerView
         android:id="@+id/pv_recipe_video"
         android:layout_width="match_parent"

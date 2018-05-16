@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Baking Time</string>
     <string name="ingredients">Ingredients</string>
+    <string name="recipe_image_description">Recipe image</string>
     <string name="widget_default">Tap here to select a recipe for its ingredients.</string>
-    <string name="no_video">Video is not available for this step.</string>
     <string name="previous_step">Previous Step</string>
     <string name="next_step">Next Step</string>
     <string name="first_recipe_name">Nutella Pie</string>
