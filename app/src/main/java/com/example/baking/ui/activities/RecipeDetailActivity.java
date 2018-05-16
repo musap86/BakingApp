@@ -1,4 +1,4 @@
-package com.example.baking.ui;
+package com.example.baking.ui.activities;
 
 import android.appwidget.AppWidgetManager;
 import android.arch.lifecycle.ViewModelProviders;
@@ -10,13 +10,14 @@ import android.view.View;
 
 import com.example.baking.R;
 import com.example.baking.data.RecipeViewModel;
-import com.example.baking.data.database.entity.Ingredient;
-import com.example.baking.data.database.entity.Step;
+import com.example.baking.data.database.entities.Ingredient;
+import com.example.baking.data.database.entities.Step;
 import com.example.baking.ui.adapters.RecipeDetailAdapter;
 import com.example.baking.ui.adapters.RecipeStepClickListener;
 import com.example.baking.ui.fragments.MediaPlayerFragment;
 import com.example.baking.ui.fragments.RecipeDetailFragment;
 import com.example.baking.ui.fragments.StepInstructionFragment;
+import com.example.baking.ui.widget.RecipeIngredientsWidget;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detail);
 
-        // Track if the activity has a two-pane layout.
+        // Track if the activity has a two-pane layout or not.
         mTwoPane = findViewById(R.id.linear_layout_step_details) != null;
 
         // Change ActionBar title as the name of the recipe.
@@ -68,7 +69,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
     }
 
     private void populateRecipeSteps(List<Step> steps) {
-        // Step count is used to see if any step has a previous or next step.
+        // Step count is used to see if any step has a previous or next one.
         mStepCount = Objects.requireNonNull(steps).size();
 
         Bundle bundle = new Bundle();

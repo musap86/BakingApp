@@ -1,4 +1,4 @@
-package com.example.baking.ui;
+package com.example.baking.ui.activities;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.baking.R;
 import com.example.baking.data.RecipeViewModel;
-import com.example.baking.data.database.entity.Ingredient;
+import com.example.baking.data.database.entities.Ingredient;
 import com.example.baking.ui.adapters.RecipeDetailAdapter;
 import com.example.baking.ui.fragments.MediaPlayerFragment;
 import com.example.baking.ui.fragments.StepInstructionFragment;

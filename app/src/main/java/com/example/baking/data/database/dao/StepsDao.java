@@ -6,7 +6,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
-import com.example.baking.data.database.entity.Step;
+import com.example.baking.data.database.entities.Step;
 
 import java.util.List;
 

@@ -1,6 +1,7 @@
 package com.example.baking.ui.adapters;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,13 +10,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.baking.R;
-import com.example.baking.data.database.entity.Recipe;
+import com.example.baking.data.database.entities.Recipe;
+import com.example.baking.idling.SimpleIdlingResource;
 
 import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeCardViewHolder> {
     private final RecipeClickListener mRecipeClickListener;
     private List<Recipe> mRecipes;
+    @Nullable
+    private SimpleIdlingResource mIdlingResource;
 
     public RecipeAdapter(RecipeClickListener recipeClickListener) {
         mRecipeClickListener = recipeClickListener;
@@ -50,7 +54,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeCard
         notifyDataSetChanged();
     }
 
-    class RecipeCardViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
+    public void setIdlingResource(SimpleIdlingResource idlingResource) {
+        mIdlingResource = idlingResource;
+    }
+
+    public class RecipeCardViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
         private final TextView recipeNameTextView;
         private int recipeId;
         private String recipeName;
@@ -66,6 +74,12 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeCard
             recipeId = current.id;
             recipeName = current.name;
             recipeNameTextView.setText(recipeName);
+
+            // At this point the response from web api is taken and the recycler view of this
+            // activity is getting populated. Since RecipesActivityTest
+            if (mIdlingResource != null) {
+                mIdlingResource.setIdleState(true);
+            }
         }
 
         @Override

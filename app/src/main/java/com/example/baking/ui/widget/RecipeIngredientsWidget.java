@@ -1,4 +1,4 @@
-package com.example.baking.ui;
+package com.example.baking.ui.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 import com.example.baking.R;
+import com.example.baking.ui.activities.RecipesActivity;
 
 /**
  * Implementation of App Widget functionality.

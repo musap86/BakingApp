@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.RecipesActivity"
+            android:name=".ui.activities.RecipesActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,13 +24,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.RecipeDetailActivity"
-            android:parentActivityName=".ui.RecipesActivity" />
+            android:name=".ui.activities.RecipeDetailActivity"
+            android:parentActivityName=".ui.activities.RecipesActivity" />
         <activity
-            android:name=".ui.RecipeStepDetailsActivity"
-            android:parentActivityName=".ui.RecipesActivity" />
+            android:name=".ui.activities.RecipeStepDetailsActivity"
+            android:parentActivityName=".ui.activities.RecipesActivity" />
 
-        <receiver android:name=".ui.RecipeIngredientsWidget">
+        <receiver android:name=".ui.widget.RecipeIngredientsWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>

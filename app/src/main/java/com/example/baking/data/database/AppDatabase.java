@@ -8,9 +8,9 @@ import android.content.Context;
 import com.example.baking.data.database.dao.IngredientsDao;
 import com.example.baking.data.database.dao.RecipesDao;
 import com.example.baking.data.database.dao.StepsDao;
-import com.example.baking.data.database.entity.Ingredient;
-import com.example.baking.data.database.entity.Recipe;
-import com.example.baking.data.database.entity.Step;
+import com.example.baking.data.database.entities.Ingredient;
+import com.example.baking.data.database.entities.Recipe;
+import com.example.baking.data.database.entities.Step;
 
 @Database(entities = {Recipe.class, Ingredient.class, Step.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {

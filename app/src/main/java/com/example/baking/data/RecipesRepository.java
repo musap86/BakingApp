@@ -10,10 +10,10 @@ import com.example.baking.data.database.dao.BakingDao;
 import com.example.baking.data.database.dao.IngredientsDao;
 import com.example.baking.data.database.dao.RecipesDao;
 import com.example.baking.data.database.dao.StepsDao;
-import com.example.baking.data.database.entity.BakingEntity;
-import com.example.baking.data.database.entity.Ingredient;
-import com.example.baking.data.database.entity.Recipe;
-import com.example.baking.data.database.entity.Step;
+import com.example.baking.data.database.entities.BakingEntity;
+import com.example.baking.data.database.entities.Ingredient;
+import com.example.baking.data.database.entities.Recipe;
+import com.example.baking.data.database.entities.Step;
 import com.example.baking.data.web.RecipeJsonModel;
 import com.example.baking.data.web.Webservice;
 

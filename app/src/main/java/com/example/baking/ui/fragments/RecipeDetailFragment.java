@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.baking.R;
-import com.example.baking.data.database.entity.Step;
+import com.example.baking.data.database.entities.Step;
 import com.example.baking.ui.adapters.RecipeDetailAdapter;
 import com.example.baking.ui.adapters.RecipeStepClickListener;
 

@@ -4,9 +4,9 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 
-import com.example.baking.data.database.entity.Ingredient;
-import com.example.baking.data.database.entity.Recipe;
-import com.example.baking.data.database.entity.Step;
+import com.example.baking.data.database.entities.Ingredient;
+import com.example.baking.data.database.entities.Recipe;
+import com.example.baking.data.database.entities.Step;
 
 import java.util.List;
 
