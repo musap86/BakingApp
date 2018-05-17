@@ -31,6 +31,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
     private boolean mIsTablet;
     private RecipeViewModel mViewModel;
     private Bundle mMediaFragmentSavedInstanceState;
+    private Bundle mRecipeDetailFragmentSavedInstanceState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,8 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
             // ...or same ingredients.
             mRecipeId = savedInstanceState.getInt("recipeId");
             // Video state of the media player fragment.
-            mMediaFragmentSavedInstanceState = savedInstanceState.getBundle("savedInstanceState");
+            mMediaFragmentSavedInstanceState = savedInstanceState.getBundle("mediaFragment");
+            mRecipeDetailFragmentSavedInstanceState = savedInstanceState.getBundle("recipeDetailFragment");
         } else {
             // Get database id of selected recipe.
             mRecipeId = getIntent().getIntExtra("id", 1);
@@ -80,6 +82,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
 
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList("steps", (ArrayList<Step>) steps);
+        bundle.putBundle("savedInstanceState", mRecipeDetailFragmentSavedInstanceState);
         RecipeDetailFragment recipeDetailFragment = new RecipeDetailFragment();
         recipeDetailFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.recipe_steps_container, recipeDetailFragment).commit();
@@ -151,12 +154,17 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
         mMediaFragmentSavedInstanceState = fragmentOutState;
     }
 
+    public void fromRecipeDetailFragment(Bundle fragmentOutState) {
+        mRecipeDetailFragmentSavedInstanceState = fragmentOutState;
+    }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("id", mId);
         outState.putInt("recipeId", mRecipeId);
-        outState.putBundle("savedInstanceState", mMediaFragmentSavedInstanceState);
+        outState.putBundle("mediaFragment", mMediaFragmentSavedInstanceState);
+        outState.putBundle("recipeDetailFragment", mRecipeDetailFragmentSavedInstanceState);
     }
 
     @Override

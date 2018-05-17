@@ -10,22 +10,21 @@
         android:id="@+id/media_player_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_weight="2"
         android:scaleType="centerInside" />
 
     <ScrollView
         android:id="@+id/step_instruction_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="3"
         android:scaleType="centerInside"
         tools:ignore="InconsistentLayout" />
 
     <FrameLayout
         android:id="@+id/step_navigation_container"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:scaleType="centerInside"
         tools:ignore="InconsistentLayout" />
 

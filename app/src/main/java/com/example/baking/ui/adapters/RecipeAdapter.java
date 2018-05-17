@@ -27,6 +27,15 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeCard
         mRecipeClickListener = recipeClickListener;
     }
 
+    @Override
+    public int getItemCount() {
+        if (mRecipes != null) {
+            return mRecipes.size();
+        } else {
+            return 0;
+        }
+    }
+
     @NonNull
     @Override
     public RecipeCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -39,15 +48,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeCard
     public void onBindViewHolder(@NonNull RecipeCardViewHolder holder, int position) {
         if (mRecipes != null) {
             holder.bind(position);
-        }
-    }
-
-    @Override
-    public int getItemCount() {
-        if (mRecipes != null) {
-            return mRecipes.size();
-        } else {
-            return 0;
         }
     }
 

@@ -14,27 +14,20 @@ import com.example.baking.data.database.entities.Step;
 import java.util.List;
 
 public class RecipeDetailAdapter extends RecyclerView.Adapter<RecipeDetailAdapter.RecipeStepsViewHolder> {
+
+    public static final int INGREDIENT_ID = 99;
     private final RecipeStepClickListener mOnClickListener;
     private List<Step> mSteps;
-    public static final int INGREDIENT_ID = 99;
 
     public RecipeDetailAdapter(RecipeStepClickListener recipeStepClickListener) {
         mOnClickListener = recipeStepClickListener;
     }
-    
-    @NonNull
-    @Override
-    public RecipeStepsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.recipe_step_item, parent, false);
-        return new RecipeStepsViewHolder(view);
+
+    public void setRecipes(List<Step> steps) {
+        mSteps = steps;
+        notifyDataSetChanged();
     }
-    
-    @Override
-    public void onBindViewHolder(@NonNull RecipeStepsViewHolder holder, int position) {
-            holder.bind(position);
-    }
-    
+
     @Override
     public int getItemCount() {
         // Ingredients will be the first item on the list. It is added in this adapter.
@@ -45,9 +38,17 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecipeDetailAdapte
         }
     }
 
-    public void setRecipes(List<Step> steps) {
-        mSteps = steps;
-        notifyDataSetChanged();
+    @NonNull
+    @Override
+    public RecipeStepsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view = inflater.inflate(R.layout.recipe_step_item, parent, false);
+        return new RecipeStepsViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecipeStepsViewHolder holder, int position) {
+        holder.bind(position);
     }
 
     public class RecipeStepsViewHolder extends RecyclerView.ViewHolder implements OnClickListener {

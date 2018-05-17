@@ -34,7 +34,6 @@ import com.google.android.exoplayer2.util.Util;
 import com.squareup.picasso.Picasso;
 
 public class MediaPlayerFragment extends Fragment {
-
     private static final String TAG = MediaPlayerFragment.class.getSimpleName();
     private int mStepId;
     private int mStartWindow;

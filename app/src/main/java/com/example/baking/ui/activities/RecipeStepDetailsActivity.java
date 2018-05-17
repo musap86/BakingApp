@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.example.baking.R;
 import com.example.baking.data.RecipeViewModel;
@@ -55,7 +56,11 @@ public class RecipeStepDetailsActivity extends AppCompatActivity implements Step
         // Video or ingredients are seen in media player container
         // depending on the clicked item of recycler view of recipe details.
         final MediaPlayerFragment mediaPlayerFragment = new MediaPlayerFragment();
+        View instructionsView = findViewById(R.id.step_instruction_container);
         if (id == RecipeDetailAdapter.INGREDIENT_ID) {
+            if (instructionsView != null) {
+                instructionsView.setVisibility(View.GONE);
+            }
             viewModel.getIngredients(mRecipeId).observe(this, ingredients -> {
                 if (ingredients != null) {
                     Bundle bundle = new Bundle();
@@ -76,6 +81,9 @@ public class RecipeStepDetailsActivity extends AppCompatActivity implements Step
                 }
             });
         } else {
+            if (instructionsView != null) {
+                instructionsView.setVisibility(View.VISIBLE);
+            }
             final int stepCount = getIntent().getIntExtra("stepCount", 1);
             viewModel.getStep(id).observe(this, step -> {
                 if (step != null) {
