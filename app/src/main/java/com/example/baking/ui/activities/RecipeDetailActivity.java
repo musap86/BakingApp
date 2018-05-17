@@ -28,7 +28,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
     private int mRecipeId;
     private int mStepCount;
     private String mRecipeName;
-    private boolean mTwoPane;
+    private boolean mIsTablet;
     private RecipeViewModel mViewModel;
     private Bundle mMediaFragmentSavedInstanceState;
 
@@ -38,7 +38,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
         setContentView(R.layout.activity_recipe_detail);
 
         // Track if the activity has a two-pane layout or not.
-        mTwoPane = findViewById(R.id.linear_layout_step_details) != null;
+        mIsTablet = getResources().getBoolean(R.bool.isTablet);
 
         // Change ActionBar title as the name of the recipe.
         String recipeName = getIntent().getStringExtra("name");
@@ -84,7 +84,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
         recipeDetailFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.recipe_steps_container, recipeDetailFragment).commit();
 
-        if (mTwoPane) {
+        if (mIsTablet) {
             populateStepDetailsPane(mId);
         }
     }
@@ -161,7 +161,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
 
     @Override
     public void onRecipeStepClick(int generatedStepId) {
-        if (mTwoPane) {
+        if (mIsTablet) {
             mId = generatedStepId;
             populateStepDetailsPane(generatedStepId);
         } else {

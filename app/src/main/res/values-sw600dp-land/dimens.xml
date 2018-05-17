@@ -2,4 +2,14 @@
 <resources>
     <bool name="isTablet">true</bool>
     <bool name="isLandscapeTablet">true</bool>
+    <dimen name="separator_thickness">2dp</dimen>
+    <dimen name="space_one_unit">8dp</dimen>
+    <dimen name="space_two_units">16dp</dimen>
+    <dimen name="space_four_units">32dp</dimen>
+    <dimen name="master_pane_width">500dp</dimen>
+    <dimen name="app_text_size">24sp</dimen>
+    <dimen name="card_text_size">18sp</dimen>
+    <dimen name="card_height">100dp</dimen>
+    <dimen name="button_height">60dp</dimen>
+    <dimen name="button_width">150dp</dimen>
 </resources>

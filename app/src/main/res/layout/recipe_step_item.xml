@@ -4,5 +4,6 @@
 
     <TextView
         android:id="@+id/tv_step_description"
-        style="@style/AppTexts" />
+        style="@style/CardTexts" />
+
 </android.support.v7.widget.CardView>

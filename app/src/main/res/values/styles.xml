@@ -10,26 +10,34 @@
 
     <style name="CardListItem" parent="CardView">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">100dp</item>
+        <item name="android:layout_height">@dimen/card_height</item>
         <item name="android:layout_gravity">center</item>
-        <item name="android:layout_margin">16dp</item>
-        <item name="android:padding">16dp</item>
-        <item name="cardCornerRadius">8dp</item>
+        <item name="android:layout_margin">@dimen/space_two_units</item>
+        <item name="cardCornerRadius">@dimen/space_one_unit</item>
+        <item name="cardBackgroundColor">@color/colorAccent</item>
     </style>
 
     <style name="AppTexts">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_centerVertical">true</item>
-        <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:padding">16dp</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:padding">@dimen/space_two_units</item>
+        <item name="android:textSize">@dimen/app_text_size</item>
+    </style>
+
+    <style name="CardTexts">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:padding">@dimen/space_two_units</item>
+        <item name="android:textSize">@dimen/card_text_size</item>
     </style>
 
     <style name="StepsNavigationButtons" parent="@android:style/Widget.Button">
-        <item name="android:layout_width">150dp</item>
-        <item name="android:layout_height">60dp</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:layout_width">@dimen/button_width</item>
+        <item name="android:layout_height">@dimen/button_height</item>
+        <item name="android:textSize">@dimen/card_text_size</item>
     </style>
 
 </resources>

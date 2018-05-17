@@ -7,23 +7,22 @@
 
     <FrameLayout
         android:id="@+id/recipe_steps_container"
-        android:layout_width="350dp"
+        android:layout_width="@dimen/master_pane_width"
         android:layout_height="match_parent"
         android:scaleType="centerInside" />
 
     <View
-        android:layout_width="2dp"
+        android:layout_width="@dimen/separator_thickness"
         android:layout_height="match_parent"
         android:background="@android:color/darker_gray"
-        android:paddingEnd="32dp"
-        android:paddingStart="32dp" />
+        android:paddingEnd="@dimen/space_four_units"
+        android:paddingStart="@dimen/space_four_units" />
 
     <LinearLayout
-        android:id="@+id/linear_layout_step_details"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp"
+        android:padding="@dimen/space_one_unit"
         tools:ignore="InconsistentLayout">
 
         <FrameLayout

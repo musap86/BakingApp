@@ -10,6 +10,6 @@
         android:id="@+id/appwidget_text"
         style="@style/AppTexts"
         android:layout_height="match_parent"
-        android:textColor="#ffffff" />
+        android:textColor="@android:color/white" />
 
 </FrameLayout>
