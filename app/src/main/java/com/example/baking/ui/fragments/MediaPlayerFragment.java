@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,7 +77,7 @@ public class MediaPlayerFragment extends Fragment {
                 clearStartPosition();
             }
             String ingredients = arguments.getString("ingredients");
-            if (ingredients != null && ingredients.length() != 0) {
+            if (!TextUtils.isEmpty(ingredients)) {
                 // Media player container is hosting for ingredients list.
                 mPlayerView.setVisibility(View.GONE);
                 imageview.setVisibility(View.GONE);
@@ -90,9 +91,9 @@ public class MediaPlayerFragment extends Fragment {
                 String videoUrl = arguments.getString("video");
                 String thumbnailUrl = arguments.getString("thumbnail");
                 // Video url is either in video or thumbnail field in the web api response.
-                String url = (videoUrl != null && videoUrl.length() != 0 && videoUrl.endsWith("mp4")) ? videoUrl : thumbnailUrl;
+                String url = (!TextUtils.isEmpty(videoUrl) && videoUrl.endsWith("mp4")) ? videoUrl : thumbnailUrl;
 
-                if (url != null && url.length() != 0) {
+                if (!TextUtils.isEmpty(url)) {
                     if (url.endsWith("mp4")) {
                         mPlayerView.setVisibility(View.VISIBLE);
                         imageview.setVisibility(View.GONE);
